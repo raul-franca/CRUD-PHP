@@ -24,8 +24,8 @@ function listarContatos($conexao){
 function listaContatosTabelaHTML(){
     $contatos = listarContatos( conexaoDB() );
 
-    echo "<table><tr><th colspan='5' style='text-align: center; font-size:larger'>Contatos</th><tr>";
-    echo "<tr><th>ID</th><th>Nome</th><th>Telefone</th><th>E-mail</th><th></th><tr>";
+    echo "<table><tr><th colspan='6' style='text-align: center; font-size:larger'>Contatos</th><tr>";
+    echo "<tr><th>ID</th><th>Nome</th><th>Telefone</th><th>E-mail</th><th></th><th></th><tr>";
 
 
     foreach ($contatos as &$contato){
@@ -55,7 +55,6 @@ function listaContatosTabelaHTML(){
             
          </style>";
 
-    return;
 
 }
 

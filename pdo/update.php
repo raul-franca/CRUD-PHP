@@ -1,50 +1,32 @@
 <?php
 
-    include_once "banco.php";
+include_once "conct.php";
 
-/*
-    echo "id: ";
-    echo $_GET["id"] . "     ";
-    echo "nome: ";
-    echo $_GET["nome"] . "<br>";
-*/
+if(isset($_GET["alterar"])){
 
-    if(isset($_GET["alterar"])){
-
-        $conexao = conexaoDB();
-
-        $sql = "UPDATE contatos
+    $sql = "UPDATE contatos
                 SET nome = '{$_GET["nome"]}', tel = '{$_GET["tel"]}',
                 email = '{$_GET["email"]}' 
                 WHERE contatos.id = " . $_GET["id"] ;
 
-        $rs = mysqli_query($conexao,$sql);
+    $rs = $pdo->query($sql);
 
+    $pdo = null; //fechar
+    header("location:index.php");
+    return;
 
-        mysqli_close($conexao);
+}
 
-        header("location:listar.php");
-        return;
+$sql = "SELECT * FROM contatos WHERE id =" . $_GET["id"] ;
 
-    }
+$rs = $pdo->query($sql);
 
+$contato =$rs->fetch();
 
-    $conexao = conexaoDB();
-
-    $sql = "SELECT * FROM contatos WHERE id =" . $_GET["id"] ;
-
-    $rs = mysqli_query($conexao,$sql);
-
-    $contato = mysqli_fetch_assoc($rs);
-
-    mysqli_close($conexao);
-/*    $sql = "UPDATE `contatos`
-            SET `nome` = '{$_GET["nome"]}', `tel` = '{$_GET["tel"]}',
-                `email` = '{$_GET["email"]}' WHERE `contatos`.`id` = " . $_GET["id"] ;
-*/
+$pdo = null; //fechar
 
 ?>
-
+<h3>Contato</h3>
 <form action="update.php?">
     <input type="hidden" id="alterar" name="alterar" value="1">
     <input type="hidden" id="id" name="id" value="<?php echo $contato["id"]  ?>">
@@ -56,4 +38,5 @@
     <input type="email" id="email" name="email"  value="<?php echo $contato["email"]  ?>"><br><br>
     <input type="submit" value="Submit">
 </form>
+
 
